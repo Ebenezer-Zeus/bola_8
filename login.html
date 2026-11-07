@@ -1,0 +1,26 @@
+<!-- Declara documento HTML5 -->
+<!DOCTYPE html>
+<!-- Define idioma principal como português do Brasil -->
+<html lang='pt-br'>
+<head>
+    <!-- Define codificação UTF-8 para suportar caracteres acentuados -->
+    <meta charset='UTF-8'>
+    <!-- Título exibido na aba do navegador para a página de login -->
+    <title>Login</title>
+    <!-- Importa estilos compartilhados do site -->
+    <link rel='stylesheet' href='styles.css'>
+</head>
+<body>
+    <!-- Cabeçalho secundário indicando a página atual -->
+    <h2>Login</h2>
+    <!-- Formulário que envia os dados de login para 'login.php' via POST -->
+    <form action='login.php' method='POST'>
+        <!-- Campo de texto para o nome de usuário; atributo required torna obrigatório -->
+        <input type='text' name='usuario' placeholder='Usuário' required>
+        <!-- Campo de senha que oculta o valor digitado; também obrigatório -->
+        <input type='password' name='senha' placeholder='Senha' required>
+        <!-- Botão de submissão do formulário -->
+        <button type='submit'>Entrar</button>
+    </form>
+</body>
+</html>

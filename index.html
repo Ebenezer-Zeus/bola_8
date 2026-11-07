@@ -1,0 +1,64 @@
+<!-- Declara o tipo de documento como HTML5 -->
+<!DOCTYPE html>
+<!-- Elemento raiz do documento; atributo lang indica o idioma principal (português do Brasil) -->
+<html lang='pt-br'>
+<!-- Cabeçalho do documento com metadados e links -->
+<head>
+    <!-- Define a codificação de caracteres para UTF-8, garantindo suporte a acentos e símbolos -->
+    <meta charset='UTF-8'>
+    <!-- Título exibido na aba do navegador -->
+    <title>Bola 8</title>
+    <!-- Importa o arquivo de estilos CSS que define a aparência da página -->
+    <link rel='stylesheet' href='styles.css'>
+</head>
+<!-- Corpo do documento: tudo que for visível ao usuário fica aqui -->
+<body>
+    <!-- Cabeçalho da página, contém nome da loja, busca e navegação -->
+    <header>
+        <!-- Logo da marca no canto superior direito -->
+        <img src="logotipo.jpeg" alt="Logo da Loja de Produtos Artesanais" class="logo-site" />
+        <!-- Título principal visível no topo da página -->
+        <h1>bola 8</h1>
+        <!-- Área de navegação que inclui campo de busca e filtros -->
+        <nav>
+            <!-- Campo de texto usado para digitar termos de busca dos produtos -->
+            <input type='text' id='searchInput' placeholder='Buscar produtos...'>
+            <!-- Botão que aciona a função JavaScript 'searchProducts' para pesquisar -->
+            <button onclick='searchProducts()'>Buscar</button>
+            <!-- Container que agrupa os elementos de filtragem por categoria e preço -->
+            <div id='filters'>
+                <!-- Select que permite escolher uma categoria para filtrar os produtos -->
+                <select id='categoryFilter'>
+                    <!-- Opção padrão que representa todas as categorias (sem filtro) -->
+                    <option value=''>Todas as Categorias</option>
+                </select>
+                <!-- Campo numérico para informar o preço mínimo do filtro -->
+                <input type='number' id='minPrice' placeholder='Preço mínimo'>
+                <!-- Campo numérico para informar o preço máximo do filtro -->
+                <input type='number' id='maxPrice' placeholder='Preço máximo'>
+                <!-- Botão que aplica os filtros selecionados chamando 'applyFilters' -->
+                <button onclick='applyFilters()'>Filtrar</button>
+            </div>
+        </nav>
+        <!-- Área com links relacionados ao usuário (login e carrinho) -->
+        <div id='userArea'>
+            <!-- Link para a página de login do usuário -->
+            <a href='login.html'>Login</a> | <!-- Separador visual entre links -->
+            <!-- Link para a página do carrinho de compras -->
+            <a href='cart.html'>Carrinho</a>
+        </div>
+    </header>
+    <!-- Área principal do conteúdo, onde a lista de produtos será exibida dinamicamente -->
+    <main>
+        <!-- Seção vazia que será populada via JavaScript com os produtos disponíveis -->
+        <section id='productList'></section>
+    </main>
+    <!-- Rodapé com informações de copyright ou outras informações persistentes -->
+    <footer>
+        <!-- Texto simples mostrando o ano e o nome da loja -->
+        <p>&copy; 2026 Bola 8</p>
+    </footer>
+    <!-- Inclusão do arquivo JavaScript que implementa a lógica de busca, filtros e renderização -->
+    <script src='scripts.js'></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+
+/* Define fonte padrão para o corpo, remove margens e preenchimento padrão do navegador */
+body { font-family: Arial; margin: 0; padding: 0; }
+
+
+/* Estiliza o cabeçalho com cor de fundo, espaçamento interno e centraliza o texto. Usa position: relative para posicionar a logo. */
+header {
+	background: #475c4a;
+	padding: 20px;
+	text-align: center;
+	position: relative;
+}
+
+/* Logo da loja posicionada no canto superior direito do header */
+.logo-site {
+	position: absolute;
+	top: 20px;
+	right: 80px;
+	height: 140px; /* 10% maior que 60px */
+	width: auto;
+	object-fit: contain;
+	z-index: 2;
+}
+
+/* Espaçamento superior para a área de navegação */
+nav { margin-top: 10px; }
+
+/* Container que exibirá os produtos em um grid flexível com espaços entre os itens */
+#productList { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; }
+
+/* Estilo básico do card de produto: borda, espaçamento interno e largura fixa */
+.produto { border: 1px solid #ccc; padding: 10px; width: 200px; }
+
+/* Faz com que a imagem do produto ocupe toda a largura do card mantendo proporção */
+.produto img { width: 100%; height: auto; }
+
+/* Estilo do rodapé: cor de fundo escura, texto claro centralizado e espaçamento */
+footer { background: #264653; color: white; text-align: center; padding: 10px; }
