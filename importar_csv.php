@@ -13,7 +13,7 @@ if (($handle = fopen("Produtos inteligentes.csv", "r")) !== FALSE) {
         // Mapeia os campos da linha para um array associativo representando o produto
         $imagemNome = $data[3];
         // Tenta encontrar arquivo existente na pasta Imagens com correspondência tolerante
-        $imagensDir = __DIR__ . DIRECTORY_SEPARATOR . 'Imagens';
+        $imagensDir = __DIR__ . DIRECTORY_SEPARATOR . 'imagem_bola_08';
         if (is_dir($imagensDir)) {
             $files = scandir($imagensDir);
             $found = null;
