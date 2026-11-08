@@ -5,17 +5,28 @@ body { font-family: Arial; margin: 0; padding: 0; }
 
 /* Estiliza o cabeçalho com cor de fundo, espaçamento interno e centraliza o texto. Usa position: relative para posicionar a logo. */
 header {
-	background: #475c4a;
-	padding: 20px;
-	text-align: center;
-	position: relative;
+	background: url("mesa\ de\ sinuca.jpeg") center / cover no-repeat;
+  	background-size: 100% 100%;
+  	background-repeat: no-repeat;
+  	min-height: 200px;
+  	padding: 20px;
+  	text-align: center;
+  	position: relative;
+}
+
+header h1 {
+	color: #fff;
+}
+
+#userArea a {
+	color: rgb(255, 192, 195);
 }
 
 /* Logo da loja posicionada no canto superior direito do header */
 .logo-site {
 	position: absolute;
 	top: 20px;
-	right: 80px;
+	left: 120px;
 	height: 140px; /* 10% maior que 60px */
 	width: auto;
 	object-fit: contain;
@@ -35,4 +46,4 @@ nav { margin-top: 10px; }
 .produto img { width: 100%; height: auto; }
 
 /* Estilo do rodapé: cor de fundo escura, texto claro centralizado e espaçamento */
-footer { background: #264653; color: white; text-align: center; padding: 10px; }
+footer { background: #420303; color: white; text-align: center; padding: 10px; }
