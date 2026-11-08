@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
         .catch(err => {
             console.warn('Falha ao carregar JSON via PHP, tentando CSV client-side:', err);
             // Fallback: tenta carregar o CSV diretamente (útil se não estiver rodando via servidor PHP)
-            fetch('produtos.csv')
+            fetch('Produtos inteligentes.csv')
                 .then(r => {
                     if (!r.ok) throw new Error('Não foi possível carregar produtos.csv');
                     return r.text();
@@ -37,7 +37,7 @@ function setProdutosFromData(data) {
     produtos = data.map(p => ({
         nome: (p.nome || '').toString().trim(),
         descricao: (p.descricao || '').toString().trim(),
-        preco: parseFloat((p.preco || 0).toString().replace(',', '.')) || 0,
+        preco: parseFloat((p.preco || 0).toString().replace(/[^0-9,]/g, '').replace(',', '.')) || 0,
         imagem: (p.imagem || '').toString().trim(),
         categoria: (p.categoria || '').toString().trim()
     }));
@@ -62,8 +62,8 @@ function parseCSV(text) {
         // Normaliza os campos para os nomes usados no app
         result.push({
             nome: obj['nome'] || obj['name'] || '',
-            descricao: obj['descrição'] || obj['descricao'] || obj['description'] || '',
-            preco: obj['preco'] || obj['price'] || 0,
+            descricao: obj['descrição'] || obj['descricao'] || obj['descri_o'] || obj['description'] || '',
+            preco: obj['preco'] || obj['pre_o'] || obj['price'] || 0,
             imagem: obj['imagem'] || obj['image'] || '',
             categoria: obj['categoria'] || obj['category'] || ''
         });
@@ -130,14 +130,14 @@ function renderProducts(lista) {
         // para interpolar as propriedades do objeto produto.
         // Normaliza nome de arquivo para tentar encontrar imagens com e sem espaços/acentos
         const imagemNome = (p.imagem || '').replace(/\s+/g, ' ').trim();
-        const imagemPath = imagemNome ? `Imagens/${imagemNome}` : 'Imagens/default.png';
+        const imagemPath = imagemNome ? `imagem_bola_08/${imagemNome}` : 'imagem_bola_08/default.png';
         // Cria estrutura via DOM para permitir onerror no <img>
         const card = document.createElement('div');
         card.className = 'produto';
         const img = document.createElement('img');
         img.src = imagemPath;
         img.alt = p.nome;
-        img.onerror = function() { this.src = 'Imagens/default.png'; };
+        img.onerror = function() { this.src = 'imagem_bola_08/default.png'; };
         const h3 = document.createElement('h3'); h3.textContent = p.nome;
         const descr = document.createElement('p'); descr.textContent = p.descricao;
         const precoP = document.createElement('p'); precoP.textContent = `R$ ${p.preco.toFixed(2)}`;
