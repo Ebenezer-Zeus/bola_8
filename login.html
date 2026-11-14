@@ -1,26 +1,108 @@
-<!-- Declara documento HTML5 -->
 <!DOCTYPE html>
-<!-- Define idioma principal como português do Brasil -->
-<html lang='pt-br'>
+<!-- Declara que o documento usa HTML5. -->
+<!-- Define o elemento raiz e o idioma da página. -->
+<html lang="pt-br">
+<!-- Inicia a área de configurações e metadados. -->
 <head>
-    <!-- Define codificação UTF-8 para suportar caracteres acentuados -->
-    <meta charset='UTF-8'>
-    <!-- Título exibido na aba do navegador para a página de login -->
-    <title>Login</title>
-    <!-- Importa estilos compartilhados do site -->
-    <link rel='stylesheet' href='styles.css'>
+    <!-- Define a codificação necessária para acentos e símbolos. -->
+    <meta charset="UTF-8">
+    <!-- Ajusta a largura da página ao tamanho da tela do dispositivo. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Define o texto que aparece na aba do navegador. -->
+    <title>Entrar ou criar conta | Bola 8</title>
+    <!-- Carrega os estilos compartilhados com o restante do site. -->
+    <link rel="stylesheet" href="styles.css">
+<!-- Fecha a área de configurações e metadados. -->
 </head>
+<!-- Inicia o conteúdo visível da página. -->
 <body>
-    <!-- Cabeçalho secundário indicando a página atual -->
-    <h2>Login</h2>
-    <!-- Formulário que envia os dados de login para 'login.php' via POST -->
-    <form action='login.php' method='POST'>
-        <!-- Campo de texto para o nome de usuário; atributo required torna obrigatório -->
-        <input type='text' name='usuario' placeholder='Usuário' required>
-        <!-- Campo de senha que oculta o valor digitado; também obrigatório -->
-        <input type='password' name='senha' placeholder='Senha' required>
-        <!-- Botão de submissão do formulário -->
-        <button type='submit'>Entrar</button>
-    </form>
+    <!-- Cria o cabeçalho com os estilos das páginas secundárias. -->
+    <header class="subpage-header">
+        <!-- Liga a imagem da marca à página inicial. -->
+        <a href="index.html" aria-label="Voltar à página inicial">
+            <!-- Mostra a imagem da marca com descrição acessível. -->
+            <img src="Bola 8.png" alt="Logo da Bola 8" class="logo-site">
+        <!-- Fecha o link que envolve a imagem da marca. -->
+        </a>
+        <!-- Mostra o nome do site no cabeçalho. -->
+        <h1>Bola 8</h1>
+        <!-- Cria o espaço que os scripts preencherão com links da conta. -->
+        <div id="userArea">
+            <!-- Mostra inicialmente o link da conta antes da consulta da sessão. -->
+            <a href="login.html">Entrar / criar conta</a> |
+            <!-- Mostra inicialmente o link para o carrinho. -->
+            <a href="cart.html">Carrinho</a>
+        <!-- Fecha a área inicial de links da conta. -->
+        </div>
+    <!-- Fecha o cabeçalho da página. -->
+    </header>
+    <!-- Inicia a área principal com o fundo e o estilo da página. -->
+    <main class="account-main">
+        <!-- Organiza os formulários de entrada e cadastro lado a lado. -->
+        <div class="account-layout">
+            <!-- Agrupa os campos usados para entrar em uma conta. -->
+            <section class="account-panel">
+                <!-- Identifica o formulário de entrada. -->
+                <h2>Entrar</h2>
+                <!-- Inicia o formulário que o JavaScript envia para a API. -->
+                <form id="loginForm">
+                    <!-- Associa um rótulo ao campo de nome de usuário. -->
+                    <label for="loginUsername">Usuário</label>
+                    <!-- Permite informar um usuário e habilita o preenchimento automático. -->
+                    <input id="loginUsername" name="username" type="text" autocomplete="username" required>
+                    <!-- Associa um rótulo ao campo de senha. -->
+                    <label for="loginPassword">Senha</label>
+                    <!-- Permite informar a senha sem exibi-la como texto. -->
+                    <input id="loginPassword" name="password" type="password" autocomplete="current-password" required>
+                    <!-- Envia o formulário de entrada. -->
+                    <button type="submit">Entrar</button>
+                    <!-- Reserva um espaço acessível para mensagens de entrada. -->
+                    <p id="loginMessage" class="account-message" role="status"></p>
+                <!-- Fecha o formulário de entrada. -->
+                </form>
+            <!-- Fecha o painel de entrada. -->
+            </section>
+            <!-- Agrupa os campos usados para criar uma conta. -->
+            <section class="account-panel">
+                <!-- Identifica o formulário de cadastro. -->
+                <h2>Criar conta</h2>
+                <!-- Inicia o formulário que o JavaScript envia para a API. -->
+                <form id="registerForm">
+                    <!-- Associa um rótulo ao campo de nome da nova conta. -->
+                    <label for="registerUsername">Usuário</label>
+                    <!-- Pede um usuário com tamanho adequado e preenchimento automático. -->
+                    <input id="registerUsername" name="username" type="text" minlength="3" maxlength="32" autocomplete="username" required>
+                    <!-- Explica os caracteres aceitos para o nome da conta. -->
+                    <small>Use de 3 a 32 letras, números, ponto, hífen ou sublinhado.</small>
+                    <!-- Associa um rótulo ao campo de senha da nova conta. -->
+                    <label for="registerPassword">Senha</label>
+                    <!-- Pede uma senha com tamanho mínimo e preenchimento automático apropriado. -->
+                    <input id="registerPassword" name="password" type="password" minlength="8" maxlength="72" autocomplete="new-password" required>
+                    <!-- Explica o tamanho mínimo exigido para a senha. -->
+                    <small>A senha deve ter pelo menos 8 caracteres.</small>
+                    <!-- Envia os dados para criar uma conta. -->
+                    <button type="submit">Criar conta</button>
+                    <!-- Reserva um espaço acessível para mensagens de cadastro. -->
+                    <p id="registerMessage" class="account-message" role="status"></p>
+                <!-- Fecha o formulário de cadastro. -->
+                </form>
+            <!-- Fecha o painel de cadastro. -->
+            </section>
+        <!-- Fecha o agrupamento dos formulários. -->
+        </div>
+    <!-- Fecha a área principal. -->
+    </main>
+    <!-- Inicia o rodapé comum às páginas do site. -->
+    <footer>
+        <!-- Mostra o ano e o nome do site. -->
+        <p>&copy; 2026 Bola 8</p>
+        <!-- Mostra os créditos dos responsáveis pelo site. -->
+        <p class="creditos">Luis Leandro S. * Ebenezer * Luan Pires</p>
+    <!-- Fecha o rodapé. -->
+    </footer>
+    <!-- Carrega o código de sessões, login e cadastro. -->
+    <script src="account.js"></script>
+<!-- Fecha o conteúdo visível da página. -->
 </body>
+<!-- Fecha o documento HTML. -->
 </html>

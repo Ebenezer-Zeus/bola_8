@@ -42,9 +42,9 @@
         </nav>
         <!-- Área com links relacionados ao usuário (login e carrinho) -->
         <div id='userArea'>
-            <!-- Link para a página de login do usuário -->
-            <a href='login.html'>Login</a> | <!-- Separador visual entre links -->
-            <!-- Link para a página do carrinho de compras -->
+            <!-- Mostra inicialmente o acesso às funções de conta. -->
+            <a href='login.html'>Entrar / criar conta</a> |
+            <!-- Mostra inicialmente o acesso ao carrinho pessoal. -->
             <a href='cart.html'>Carrinho</a>
         </div>
     </header>
@@ -61,6 +61,9 @@
         <p class="creditos">Luis Leandro S.     *   Ebenezer     *    Luan Pires</p>
     </footer>
     <!-- Inclusão do arquivo JavaScript que implementa a lógica de busca, filtros e renderização -->
+    <!-- Carrega primeiro o código de sessão e identificação da conta. -->
+    <script src='account.js'></script>
+    <!-- Carrega o código da vitrine depois de disponibilizar as funções da conta. -->
     <script src='scripts.js'></script>
 </body>
 </html>

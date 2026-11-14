@@ -1,4 +1,16 @@
 
+/* Registra a fonte local para que o navegador possa usá-la na página. */
+@font-face {
+	/* Define o nome usado nas regras CSS para esta fonte. */
+	font-family: "Bright Chalk";
+	/* Carrega o arquivo de fonte que acompanha o projeto. */
+	src: url("Bright Chalk.ttf") format("truetype");
+	/* Usa a variação normal da fonte. */
+	font-weight: normal;
+	/* Usa o estilo não inclinado da fonte. */
+	font-style: normal;
+}
+
 /* Define o estilo geral da página. */
 body {
 	/* Usa Arial como fonte principal. */
@@ -32,6 +44,8 @@ header h1 {
 
 /* Define o fundo da área principal da página. */
 main {
+	/* Usa a fonte local no conteúdo da área principal. */
+	font-family: "Bright Chalk", sans-serif;
 	/* Usa a imagem indicada, centralizada e cobrindo a área. */
 	background: url("mesa\ de\ sinuca.jpeg") center / cover no-repeat;
 	/* Ajusta a imagem para preencher toda a área principal. */
@@ -50,9 +64,9 @@ main {
 .produto h3,
 .produto p {
 	/* Cria um fundo branco parcialmente transparente para os textos. */
-    background-color: rgba(255, 255, 255, 0.795);
+    background-color: rgba(255, 255, 255, 0.192);
 	/* Define a cor do texto. */
-    color: #222;
+    color: #fdfcfcd0;
 	/* Adiciona espaço interno ao redor do texto. */
     padding: 6px 8px;
 	/* Arredonda os cantos do fundo do texto. */
@@ -100,18 +114,6 @@ nav { margin-top: 10px; }
 	padding: 20px;
 }
 
-/* Define borda, cantos, espaçamento e largura dos cartões. */
-.produto {
-	/* Desenha uma borda branca tracejada ao redor do cartão. */
-	border: 3px dashed #fcfcfcc2;
-	/* Arredonda os cantos do cartão. */
-	border-radius: 18px;
-	/* Adiciona espaço entre o conteúdo e a borda. */
-	padding: 10px;
-	/* Define a largura do cartão. */
-	width: 200px;
-}
-
 /* Estiliza o rodapé da página. */
 footer {
 	/* Define a cor de fundo do rodapé. */
@@ -138,4 +140,236 @@ footer {
 	width: 100%;
 	/* Mantém a proporção original da imagem. */
 	height: auto;
+}
+
+/* Define borda, cantos, espaçamento e largura dos cartões. */
+.produto {
+	/* Desenha uma borda branca tracejada ao redor do cartão. */
+	border: 3px dashed #fcfcfcbe;
+	/* Arredonda os cantos do cartão. */
+	border-radius: 18px;
+	/* Adiciona espaço entre o conteúdo e a borda. */
+	padding: 10px;
+	/* Define a largura do cartão. */
+	width: 200px;
+}
+
+/* Ajusta a altura mínima e o espaço interno do cabeçalho das páginas secundárias. */
+.subpage-header {
+	/* Mantém o cabeçalho mais compacto que o cabeçalho da vitrine. */
+	min-height: 100px;
+	/* Cria espaço ao redor do conteúdo do cabeçalho. */
+	padding: 20px;
+}
+
+/* Define o fundo e a altura mínima do conteúdo secundário. */
+.account-main {
+	/* Inclui o espaço interno no cálculo da largura e da altura. */
+	box-sizing: border-box;
+	/* Faz a área principal ocupar quase toda a altura da janela. */
+	min-height: calc(100vh - 190px);
+	/* Cria espaço entre o painel e as bordas da página. */
+	padding: 40px 20px;
+	/* Usa a imagem de fundo da página principal sem repeti-la. */
+	background: url("mesa\ de\ sinuca.jpeg") center / cover no-repeat;
+}
+
+/* Organiza os formulários de conta em colunas responsivas. */
+.account-layout {
+	/* Coloca os painéis em grade. */
+	display: grid;
+	/* Ajusta o número de colunas à largura disponível. */
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+	/* Define o espaço entre os painéis. */
+	gap: 24px;
+	/* Evita que o conjunto fique excessivamente largo. */
+	max-width: 900px;
+	/* Centraliza o conjunto horizontalmente. */
+	margin: 0 auto;
+}
+
+/* Dá aos formulários e ao carrinho o visual de cartões da loja. */
+.account-panel {
+	/* Inclui a borda e o preenchimento na largura definida. */
+	box-sizing: border-box;
+	/* Limita a largura do painel. */
+	width: min(100%, 900px);
+	/* Centraliza o painel dentro do conteúdo principal. */
+	margin: 0 auto;
+	/* Cria espaço interno entre o conteúdo e as bordas. */
+	padding: 24px;
+	/* Adiciona a borda tracejada já usada nos cartões de produto. */
+	border: 3px dashed #fcfcfcbe;
+	/* Arredonda os cantos para combinar com os cartões da loja. */
+	border-radius: 18px;
+	/* Usa um fundo escuro parcialmente transparente. */
+	background: rgba(48, 1, 1, 0.9);
+	/* Define o texto do painel como branco. */
+	color: #fff;
+}
+
+/* Ajusta o título dentro de cada painel. */
+.account-panel h2 {
+	/* Remove o espaço superior padrão do título. */
+	margin-top: 0;
+	/* Centraliza o título dentro do painel. */
+	text-align: center;
+}
+
+/* Organiza os campos do formulário em uma coluna com espaçamento. */
+.account-panel form {
+	/* Ativa a disposição em grade. */
+	display: grid;
+	/* Separa verticalmente os campos e botões. */
+	gap: 10px;
+}
+
+/* Padroniza os campos de texto e senha. */
+.account-panel input {
+	/* Inclui o preenchimento e a borda na largura total. */
+	box-sizing: border-box;
+	/* Faz o campo ocupar toda a largura do painel. */
+	width: 100%;
+	/* Cria espaço interno para facilitar a digitação. */
+	padding: 10px;
+	/* Desenha uma borda discreta e arredondada. */
+	border: 1px solid #c9b4b4;
+	/* Arredonda os cantos do campo. */
+	border-radius: 6px;
+	/* Usa uma fonte legível nos campos. */
+	font: 16px Arial, sans-serif;
+}
+
+/* Padroniza os botões do painel e dos itens do carrinho. */
+.account-panel button,
+.cart-item button {
+	/* Aumenta a área clicável dos botões. */
+	padding: 10px 14px;
+	/* Remove a borda padrão do navegador. */
+	border: 0;
+	/* Arredonda os cantos dos botões. */
+	border-radius: 6px;
+	/* Usa a cor principal escura do site. */
+	background: #300101;
+	/* Mantém o texto do botão legível sobre o fundo escuro. */
+	color: #fff;
+	/* Define uma fonte simples e legível nos botões. */
+	font: 16px Arial, sans-serif;
+	/* Mostra que o botão pode ser clicado. */
+	cursor: pointer;
+}
+
+/* Indica visualmente quando um botão não está disponível. */
+.account-panel button:disabled {
+	/* Mostra que o botão desativado não pode ser clicado. */
+	cursor: not-allowed;
+	/* Reduz o destaque do botão desativado. */
+	opacity: 0.6;
+}
+
+/* Deixa as instruções dos formulários legíveis sobre o fundo escuro. */
+.account-panel small {
+	/* Usa um tom claro para o texto auxiliar. */
+	color: #f0dddd;
+	/* Usa uma fonte sem serifa para facilitar a leitura. */
+	font-family: Arial, sans-serif;
+}
+
+/* Reserva espaço para mensagens e usa fonte legível. */
+.account-message {
+	/* Mantém o espaço mesmo quando não há mensagem. */
+	min-height: 1.4em;
+	/* Mantém pequena a distância ao redor da mensagem. */
+	margin: 4px 0;
+	/* Usa uma fonte simples para textos de estado. */
+	font-family: Arial, sans-serif;
+}
+
+/* Destaca mensagens de erro com uma cor clara. */
+.account-message.is-error {
+	/* Diferencia erros das mensagens normais. */
+	color: #ffb3b3;
+}
+
+/* Limita a largura do painel do carrinho. */
+.cart-panel {
+	/* Evita que o carrinho fique largo demais em telas grandes. */
+	max-width: 760px;
+}
+
+/* Empilha os itens do carrinho com espaçamento regular. */
+.cart-items {
+	/* Organiza os cartões de produto em uma grade. */
+	display: grid;
+	/* Separa um item do outro. */
+	gap: 12px;
+}
+
+/* Organiza as informações e o botão de cada produto. */
+.cart-item {
+	/* Ativa o layout flexível do cartão. */
+	display: flex;
+	/* Alinha verticalmente o conteúdo do cartão. */
+	align-items: center;
+	/* Coloca o conteúdo e o botão nas extremidades. */
+	justify-content: space-between;
+	/* Mantém espaço entre o texto e o botão. */
+	gap: 16px;
+	/* Cria espaço ao redor do conteúdo do item. */
+	padding: 12px;
+	/* Contorna o item com uma borda clara. */
+	border: 1px solid #fcfcfcbe;
+	/* Arredonda os cantos do item. */
+	border-radius: 10px;
+	/* Aplica um fundo claro parcialmente transparente. */
+	background: rgba(255, 255, 255, 0.12);
+}
+
+/* Reduz os espaços padrão dos títulos e textos dos itens. */
+.cart-item h3,
+.cart-item p {
+	/* Deixa o conteúdo mais compacto dentro do cartão. */
+	margin: 4px 0;
+}
+
+/* Destaca o total do carrinho. */
+.cart-total {
+	/* Separa o total dos itens listados. */
+	margin-top: 20px;
+	/* Aumenta o tamanho do texto do total. */
+	font-size: 1.2em;
+	/* Alinha o total à direita. */
+	text-align: right;
+}
+
+/* Mantém claros os links sobre o fundo escuro. */
+.back-link,
+#userArea span {
+	/* Define a cor dos links e da saudação da conta. */
+	color: #fff;
+}
+
+/* Ajusta a posição de alguns elementos em telas estreitas. */
+@media (max-width: 600px) {
+	/* Reposiciona e reduz a logo em telas pequenas. */
+	.subpage-header .logo-site {
+		/* Aproxima a logo da borda esquerda. */
+		left: 16px;
+		/* Diminui a altura da logo para caber na tela. */
+		height: 80px;
+	}
+
+	/* Cria espaço acima do título no cabeçalho compacto. */
+	.subpage-header h1 {
+		/* Evita sobreposição com a logo em telas pequenas. */
+		padding-top: 35px;
+	}
+
+	/* Empilha o texto e o botão dos itens do carrinho no celular. */
+	.cart-item {
+		/* Alinha o conteúdo ao início do cartão. */
+		align-items: flex-start;
+		/* Coloca as partes do cartão uma abaixo da outra. */
+		flex-direction: column;
+	}
 }

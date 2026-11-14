@@ -4,6 +4,16 @@ let produtos = [];
 
 // Ao carregar a página, busca os produtos no servidor (importar_csv.php)
 window.addEventListener('DOMContentLoaded', () => {
+    // Detecta a tela do carrinho pelo elemento que só existe nela.
+    if (document.getElementById('cartItems')) {
+        // Carrega os itens da conta conectada e não tenta renderizar a vitrine.
+        carregarCarrinho();
+        // Encerra a inicialização específica desta página.
+        return;
+    }
+    // Ignora páginas sem catálogo de produtos, como a tela de login.
+    if (!document.getElementById('productList')) return;
+
     // Tenta primeiro usar o endpoint PHP que retorna JSON
     fetch('importar_csv.php')
         // Verifica se o servidor respondeu com sucesso.
@@ -153,6 +163,8 @@ function applyFilters() {
 function renderProducts(lista) {
     // Obtém o elemento onde os produtos serão inseridos
     const container = document.getElementById("productList");
+    // Interrompe a renderização se a página não tiver uma lista de produtos.
+    if (!container) return;
     // Limpa o conteúdo atual para re-renderizar
     container.innerHTML = "";
     // Itera sobre cada produto da lista e cria o HTML correspondente
@@ -210,6 +222,8 @@ function renderProducts(lista) {
 function populateCategoryFilter() {
     // Seleciona o campo de categorias da página.
     const select = document.getElementById('categoryFilter');
+    // Evita preencher um filtro que não existe nesta página.
+    if (!select) return;
     // Remove quaisquer opções além da primeira (Todas as Categorias)
     while (select.options.length > 1) select.remove(1);
     // Obtém as categorias preenchidas, sem duplicatas ou valores vazios.
@@ -229,14 +243,183 @@ function populateCategoryFilter() {
     });
 }
 
-// Função chamada ao clicar no botão "Adicionar ao Carrinho"; atualmente apenas mostra um alerta
-function adicionarAoCarrinho(nome) {
-    // Mensagem simples indicando que o produto foi adicionado
-    alert(`Produto ${nome} adicionado ao carrinho.`);
+// Adiciona o produto à conta conectada e trata falhas de autenticação.
+async function adicionarAoCarrinho(nome) {
+    // Tenta salvar uma unidade do produto no carrinho do servidor.
+    try {
+        // Envia para a API o nome do produto que será adicionado.
+        await window.accountApi('cart_add', { name: nome });
+        // Confirma visualmente que o produto foi salvo.
+        alert(`Produto ${nome} adicionado ao carrinho.`);
+    // Trata falhas retornadas pelo servidor.
+    } catch (error) {
+        // Redireciona para a tela de entrada quando não há conta conectada.
+        if (error.status === 401) {
+            // Abre a tela de conta e informa a página de retorno.
+            window.location.href = 'login.html?redirect=index.html';
+            // Encerra o tratamento após redirecionar.
+            return;
+        }
+        // Mostra ao usuário qualquer outra falha na ação.
+        alert(error.message);
+    }
 }
 
-// Função para finalizar a compra; atualmente mostra apenas um alerta de confirmação
-function finalizarCompra() {
-    // Exibe uma mensagem de confirmação da compra.
-    alert("Compra finalizada com sucesso!");
+// Busca os itens salvos e monta visualmente o carrinho da conta atual.
+async function carregarCarrinho() {
+    // Encontra a área que receberá a lista de produtos.
+    const container = document.getElementById('cartItems');
+    // Encontra o espaço usado para mensagens de estado e erro.
+    const message = document.getElementById('cartMessage');
+    // Encontra o espaço em que o total será apresentado.
+    const totalElement = document.getElementById('cartTotal');
+    // Encontra o botão que informa sobre a finalização.
+    const checkoutButton = document.getElementById('checkoutButton');
+
+    // Trata erros que possam acontecer ao consultar os dados.
+    try {
+        // Busca ao mesmo tempo o carrinho da conta e o catálogo de produtos.
+        const [cartData, productsResponse] = await Promise.all([
+            // Pede à API o carrinho pertencente à sessão conectada.
+            window.accountApi('cart_get'),
+            // Carrega do servidor a lista atual de produtos.
+            fetch('importar_csv.php')
+        ]);
+        // Interrompe se o servidor não conseguiu entregar o catálogo.
+        if (!productsResponse.ok) throw new Error('Não foi possível carregar os produtos.');
+        // Converte a resposta do catálogo em dados JavaScript.
+        const productData = await productsResponse.json();
+        // Confirma que o catálogo recebido é uma lista.
+        if (!Array.isArray(productData)) throw new Error('A lista de produtos é inválida.');
+        // Prepara os produtos com os mesmos dados usados pela página principal.
+        setProdutosFromData(productData);
+
+        // Remove os itens antigos antes de exibir os atuais.
+        container.replaceChildren();
+        // Inicializa o valor total do carrinho.
+        let total = 0;
+        // Transforma os itens do carrinho em pares de nome e quantidade.
+        const entries = Object.entries(cartData.cart);
+
+        // Mostra uma mensagem e desativa a finalização se não houver itens.
+        if (entries.length === 0) {
+            // Informa que a conta ainda não tem produtos no carrinho.
+            message.textContent = 'Seu carrinho está vazio.';
+            // Apaga qualquer valor total anterior.
+            totalElement.textContent = '';
+            // Desativa o botão quando não existem itens para finalizar.
+            checkoutButton.disabled = true;
+            // Encerra o carregamento do carrinho vazio.
+            return;
+        }
+
+        // Limpa mensagem anterior antes de apresentar os itens.
+        message.textContent = '';
+        // Cria um cartão para cada produto salvo.
+        entries.forEach(([name, quantity]) => {
+            // Procura no catálogo os dados do produto salvo.
+            const product = produtos.find(item => item.nome === name);
+            // Ignora o item se o produto não existir mais no catálogo.
+            if (!product) return;
+
+            // Cria o elemento que agrupa as informações do produto.
+            const item = document.createElement('article');
+            // Aplica o estilo de cartão de produto do carrinho.
+            item.className = 'cart-item';
+            // Cria o agrupamento do nome e da quantidade.
+            const description = document.createElement('div');
+            // Cria um título para o nome do produto.
+            const title = document.createElement('h3');
+            // Insere o nome do produto como texto seguro.
+            title.textContent = product.nome;
+            // Cria a descrição da quantidade e do preço unitário.
+            const details = document.createElement('p');
+            // Apresenta a quantidade e o preço formatado do produto.
+            details.textContent = `${quantity} unidade(s) × R$ ${product.preco.toFixed(2)}`;
+            // Agrupa o título e a descrição do produto.
+            description.append(title, details);
+
+            // Cria o botão usado para remover este produto do carrinho.
+            const removeButton = document.createElement('button');
+            // Evita que o botão envie um formulário.
+            removeButton.type = 'button';
+            // Define o texto visível do botão.
+            removeButton.textContent = 'Remover';
+            // Executa a remoção quando o botão for clicado.
+            removeButton.addEventListener('click', async () => {
+                // Trata possíveis falhas ao remover o produto.
+                try {
+                    // Pede à API para remover o produto da conta atual.
+                    await window.accountApi('cart_remove', { name });
+                    // Atualiza a lista para refletir o carrinho salvo.
+                    await carregarCarrinho();
+                // Informa na página se a remoção falhar.
+                } catch (error) {
+                    // Mostra a mensagem de erro na área de mensagens.
+                    setAccountMessage(message, error.message, true);
+                }
+            });
+
+            // Soma ao total o preço do produto multiplicado por sua quantidade.
+            total += product.preco * quantity;
+            // Agrupa as informações e o botão dentro do cartão.
+            item.append(description, removeButton);
+            // Insere o cartão na lista visível do carrinho.
+            container.appendChild(item);
+        });
+
+        // Trata o caso em que todos os produtos salvos saíram do catálogo.
+        if (container.childElementCount === 0) {
+            // Informa que os produtos salvos não estão mais disponíveis.
+            message.textContent = 'Os produtos salvos não estão mais disponíveis.';
+            // Remove um total que não pode mais ser calculado.
+            totalElement.textContent = '';
+            // Desativa a finalização porque não há produtos válidos.
+            checkoutButton.disabled = true;
+        } else {
+            // Habilita o botão informativo quando há produtos válidos.
+            checkoutButton.disabled = false;
+        }
+        // Apresenta o valor calculado para todos os produtos.
+        totalElement.textContent = `Total: R$ ${total.toFixed(2)}`;
+    // Trata falhas ao carregar o carrinho ou o catálogo.
+    } catch (error) {
+        // Mostra uma opção de login quando a sessão não está autenticada.
+        if (error.status === 401) {
+            // Informa que é preciso entrar para consultar o carrinho.
+            setAccountMessage(message, 'Entre na sua conta para ver seu carrinho.');
+            // Cria um link que leva de volta ao carrinho após entrar.
+            const loginLink = document.createElement('a');
+            // Define a tela de login e a página de retorno.
+            loginLink.href = 'login.html?redirect=cart.html';
+            // Define o texto do link.
+            loginLink.textContent = 'Entrar';
+            // Coloca o link junto da mensagem de autenticação.
+            message.append(' ', loginLink);
+            // Desativa a finalização sem autenticação.
+            checkoutButton.disabled = true;
+            // Encerra o tratamento após apresentar o link.
+            return;
+        }
+        // Apresenta qualquer outra falha na página.
+        setAccountMessage(message, error.message, true);
+        // Desativa o botão enquanto o carrinho não puder ser verificado.
+        checkoutButton.disabled = true;
+    }
 }
+
+// Informa que a finalização ainda não está configurada como compra real.
+function finalizarCompra() {
+    // Encontra a área em que a informação será apresentada.
+    const message = document.getElementById('cartMessage');
+    // Informa que o carrinho continua salvo para não sugerir uma compra concluída.
+    setAccountMessage(message, 'A finalização da compra ainda não está disponível. Seu carrinho continua salvo.');
+}
+
+// Aguarda a página carregar antes de ligar o botão de finalização.
+window.addEventListener('DOMContentLoaded', () => {
+    // Encontra o botão da página de carrinho.
+    const checkoutButton = document.getElementById('checkoutButton');
+    // Liga o botão à mensagem de finalização quando ele existir.
+    if (checkoutButton) checkoutButton.addEventListener('click', finalizarCompra);
+});
