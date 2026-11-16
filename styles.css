@@ -373,3 +373,311 @@ footer {
 		flex-direction: column;
 	}
 }
+
+/* ===================== Tela de login ===================== */
+
+/* Centraliza o cartão de login na área da mesa de sinuca. */
+.login-main {
+	/* Ativa o layout flexível para centralizar o cartão. */
+	display: flex;
+	/* Centraliza o cartão na horizontal. */
+	justify-content: center;
+	/* Centraliza o cartão na vertical. */
+	align-items: center;
+}
+
+/* Cartão escuro e translúcido que reúne entrada e cadastro. */
+.login-card {
+	/* Inclui borda e preenchimento na largura definida. */
+	box-sizing: border-box;
+	/* Limita a largura do cartão e o adapta a telas pequenas. */
+	width: min(100%, 420px);
+	/* Cria espaço interno confortável. */
+	padding: 32px 32px 24px;
+	/* Usa um vinho escuro quase opaco por cima da mesa. */
+	background: rgba(30, 2, 2, 0.88);
+	/* Desfoca levemente a mesa por trás do cartão. */
+	backdrop-filter: blur(6px);
+	/* Desenha uma borda clara e discreta. */
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	/* Arredonda os cantos do cartão. */
+	border-radius: 18px;
+	/* Dá profundidade ao cartão com uma sombra suave. */
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+	/* Define o texto do cartão como branco. */
+	color: #fff;
+	/* Usa uma fonte legível nos textos do formulário. */
+	font-family: Arial, sans-serif;
+}
+
+/* Título do cartão com a fonte de giz. */
+.login-title {
+	/* Usa a fonte de giz do projeto. */
+	font-family: "Bright Chalk", sans-serif;
+	/* Aumenta o tamanho do título. */
+	font-size: 2rem;
+	/* Remove a margem padrão do título. */
+	margin: 0;
+	/* Centraliza o título. */
+	text-align: center;
+	/* Usa o mesmo rosa claro dos links do cabeçalho. */
+	color: #ffe3e4;
+}
+
+/* Texto de apoio abaixo do título. */
+.login-subtitle {
+	/* Separa o subtítulo do título e das abas. */
+	margin: 6px 0 22px;
+	/* Centraliza o subtítulo. */
+	text-align: center;
+	/* Usa um tom claro e discreto. */
+	color: #d9c2c2;
+	/* Reduz o tamanho do texto. */
+	font-size: 0.95rem;
+}
+
+/* Fundo das abas, no formato de um seletor segmentado. */
+.login-tabs {
+	/* Divide o espaço em duas colunas iguais. */
+	display: grid;
+	/* Cria duas abas do mesmo tamanho. */
+	grid-template-columns: 1fr 1fr;
+	/* Deixa um pequeno espaço entre as abas. */
+	gap: 4px;
+	/* Cria espaço interno ao redor das abas. */
+	padding: 4px;
+	/* Usa um fundo levemente mais claro que o cartão. */
+	background: rgba(255, 255, 255, 0.08);
+	/* Arredonda o seletor. */
+	border-radius: 10px;
+	/* Separa as abas dos campos. */
+	margin-bottom: 22px;
+}
+
+/* Botão de cada aba. */
+.login-tab {
+	/* Remove a borda padrão do navegador. */
+	border: 0;
+	/* Deixa a aba inativa sem fundo. */
+	background: transparent;
+	/* Usa um tom claro apagado na aba inativa. */
+	color: #d9c2c2;
+	/* Define a fonte e o tamanho do texto da aba. */
+	font: 600 15px Arial, sans-serif;
+	/* Aumenta a área clicável. */
+	padding: 10px;
+	/* Arredonda a aba. */
+	border-radius: 8px;
+	/* Mostra que a aba pode ser clicada. */
+	cursor: pointer;
+	/* Suaviza a troca de cores. */
+	transition: background 0.2s, color 0.2s;
+}
+
+/* Clareia a aba inativa ao passar o mouse. */
+.login-tab:hover {
+	/* Destaca o texto da aba. */
+	color: #fff;
+}
+
+/* Destaca a aba ativa com a cor de giz clara. */
+.login-tab.is-active {
+	/* Usa um creme claro como fundo. */
+	background: #f3e6d4;
+	/* Usa o vinho do site no texto. */
+	color: #300101;
+}
+
+/* Organiza os campos de cada formulário em uma coluna. */
+.login-form {
+	/* Ativa a disposição em grade. */
+	display: grid;
+	/* Separa os grupos de campos. */
+	gap: 16px;
+}
+
+/* Garante que o formulário escondido não apareça. */
+.login-form[hidden] {
+	/* Esconde o formulário da aba inativa. */
+	display: none;
+}
+
+/* Agrupa rótulo, campo e dica. */
+.login-field {
+	/* Ativa a disposição em grade. */
+	display: grid;
+	/* Aproxima rótulo, campo e dica. */
+	gap: 6px;
+}
+
+/* Rótulos dos campos. */
+.login-field label {
+	/* Deixa o rótulo em destaque. */
+	font-weight: 600;
+	/* Reduz o tamanho do rótulo. */
+	font-size: 0.9rem;
+	/* Usa um tom claro. */
+	color: #f5e9e9;
+}
+
+/* Campos de texto e senha. */
+.login-field input {
+	/* Inclui preenchimento e borda na largura total. */
+	box-sizing: border-box;
+	/* Faz o campo ocupar toda a largura. */
+	width: 100%;
+	/* Cria espaço interno para facilitar a digitação. */
+	padding: 12px 14px;
+	/* Usa um fundo escuro translúcido. */
+	background: rgba(255, 255, 255, 0.07);
+	/* Desenha uma borda discreta. */
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	/* Arredonda o campo. */
+	border-radius: 8px;
+	/* Usa texto branco no campo. */
+	color: #fff;
+	/* Usa uma fonte legível. */
+	font: 16px Arial, sans-serif;
+	/* Suaviza a mudança de borda ao focar. */
+	transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Texto de exemplo dentro dos campos. */
+.login-field input::placeholder {
+	/* Usa um tom apagado no texto de exemplo. */
+	color: rgba(255, 255, 255, 0.4);
+}
+
+/* Destaca o campo que está sendo preenchido. */
+.login-field input:focus {
+	/* Remove o contorno padrão do navegador. */
+	outline: none;
+	/* Usa dourado na borda do campo ativo. */
+	border-color: #e2b765;
+	/* Cria um brilho dourado ao redor do campo. */
+	box-shadow: 0 0 0 3px rgba(226, 183, 101, 0.25);
+}
+
+/* Dicas abaixo dos campos. */
+.login-field small {
+	/* Usa um tom claro e discreto. */
+	color: #c9b0b0;
+	/* Reduz o tamanho da dica. */
+	font-size: 0.8rem;
+}
+
+/* Agrupa o campo de senha e o botão de mostrar. */
+.password-wrap {
+	/* Serve de referência para posicionar o botão. */
+	position: relative;
+}
+
+/* Abre espaço à direita do campo para o botão. */
+.password-wrap input {
+	/* Evita que o texto fique por baixo do botão. */
+	padding-right: 84px;
+}
+
+/* Botão de mostrar ou ocultar a senha. */
+.toggle-password {
+	/* Posiciona o botão dentro do campo. */
+	position: absolute;
+	/* Alinha o botão à direita do campo. */
+	right: 6px;
+	/* Centraliza o botão na vertical. */
+	top: 50%;
+	/* Ajusta a centralização vertical. */
+	transform: translateY(-50%);
+	/* Remove a borda padrão. */
+	border: 0;
+	/* Usa um fundo translúcido. */
+	background: rgba(255, 255, 255, 0.1);
+	/* Usa texto claro. */
+	color: #f3e6d4;
+	/* Define a fonte do botão. */
+	font: 600 12px Arial, sans-serif;
+	/* Cria espaço interno. */
+	padding: 6px 10px;
+	/* Arredonda o botão. */
+	border-radius: 6px;
+	/* Mostra que o botão pode ser clicado. */
+	cursor: pointer;
+}
+
+/* Botão principal de entrar ou criar conta. */
+.login-submit {
+	/* Cria espaço acima do botão. */
+	margin-top: 4px;
+	/* Aumenta a área clicável. */
+	padding: 13px;
+	/* Remove a borda padrão. */
+	border: 0;
+	/* Arredonda o botão. */
+	border-radius: 8px;
+	/* Usa um dourado que se destaca sobre o vinho. */
+	background: linear-gradient(180deg, #ecc576, #d4a24c);
+	/* Usa o vinho escuro no texto. */
+	color: #2a0000;
+	/* Define a fonte do botão em negrito. */
+	font: 700 16px Arial, sans-serif;
+	/* Mostra que o botão pode ser clicado. */
+	cursor: pointer;
+	/* Suaviza o efeito ao passar o mouse. */
+	transition: transform 0.1s, filter 0.2s;
+}
+
+/* Clareia o botão ao passar o mouse. */
+.login-submit:hover {
+	/* Aumenta o brilho do botão. */
+	filter: brightness(1.08);
+}
+
+/* Afunda o botão ao clicar. */
+.login-submit:active {
+	/* Move o botão um pouco para baixo. */
+	transform: translateY(1px);
+}
+
+/* Centraliza as mensagens de erro e sucesso no cartão. */
+.login-form .account-message {
+	/* Centraliza a mensagem. */
+	text-align: center;
+	/* Remove a margem extra. */
+	margin: 0;
+}
+
+/* Atalho para trocar de aba no fim do cartão. */
+.login-switch {
+	/* Centraliza o texto. */
+	text-align: center;
+	/* Remove a margem padrão. */
+	margin: 0;
+	/* Reduz o tamanho do texto. */
+	font-size: 0.9rem;
+	/* Usa um tom claro e discreto. */
+	color: #c9b0b0;
+}
+
+/* Link de troca de aba. */
+.login-switch a {
+	/* Usa o dourado do botão principal. */
+	color: #e2b765;
+	/* Destaca o link. */
+	font-weight: 600;
+}
+
+/* Título "Bola 8" usado como atalho para a página inicial. */
+.home-link {
+	/* Mantém a cor branca do título. */
+	color: inherit;
+	/* Remove o sublinhado padrão dos links. */
+	text-decoration: none;
+	/* Suaviza a mudança de cor ao passar o mouse. */
+	transition: color 0.2s;
+}
+
+/* Destaca o título ao passar o mouse para mostrar que é clicável. */
+.home-link:hover {
+	/* Usa o rosa claro dos links do cabeçalho. */
+	color: rgb(255, 192, 195);
+}
