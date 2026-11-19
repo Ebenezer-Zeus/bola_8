@@ -33,9 +33,9 @@
                     <option value=''>Todas as Categorias</option>
                 </select>
                 <!-- Campo numérico para informar o preço mínimo do filtro -->
-                <input type='number' id='minPrice' placeholder='Preço mínimo'>
+                <input type='number' id='minPrice' placeholder='Preço mínimo' min='0' step='10'>
                 <!-- Campo numérico para informar o preço máximo do filtro -->
-                <input type='number' id='maxPrice' placeholder='Preço máximo'>
+                <input type='number' id='maxPrice' placeholder='Preço máximo' min='0' step='10'>
                 <!-- Botão que aplica os filtros selecionados chamando 'applyFilters' -->
                 <button onclick='applyFilters()'>Filtrar</button>
             </div>
@@ -65,5 +65,4 @@
     <script src='account.js'></script>
     <!-- Carrega o código da vitrine depois de disponibilizar as funções da conta. -->
     <script src='scripts.js'></script>
-</body>
-</html>
+<

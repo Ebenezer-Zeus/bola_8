@@ -4,6 +4,16 @@ let produtos = [];
 
 // Ao carregar a página, busca os produtos no servidor (importar_csv.php)
 window.addEventListener('DOMContentLoaded', () => {
+    // Impede a entrada negativa no preço mínimo assim que o usuário digita.
+    const minPriceInput = document.getElementById('minPrice');
+    if (minPriceInput) {
+        minPriceInput.addEventListener('input', () => {
+            if (parseFloat(minPriceInput.value) < 0) {
+                minPriceInput.value = '0';
+            }
+        });
+    }
+
     // Detecta a tela do carrinho pelo elemento que só existe nela.
     if (document.getElementById('cartItems')) {
         // Carrega os itens da conta conectada e não tenta renderizar a vitrine.
@@ -147,8 +157,14 @@ function searchProducts() {
 function applyFilters() {
     // Lê o valor selecionado no select de categorias
     const categoria = document.getElementById("categoryFilter").value;
+    // Impede que o preço mínimo negativo seja usado pelo filtro
+    const minPriceInput = document.getElementById("minPrice");
+    const minValue = parseFloat(minPriceInput.value);
+    if (minValue < 0) {
+        minPriceInput.value = "0";
+    }
     // Converte os valores de preço para números, usando 0 e Infinity como padrão
-    const min = parseFloat(document.getElementById("minPrice").value) || 0;
+    const min = parseFloat(minPriceInput.value) || 0;
     const max = parseFloat(document.getElementById("maxPrice").value) || Infinity;
     // Filtra os produtos observando categoria (se informada) e faixa de preço
     const filtrados = produtos.filter(p =>

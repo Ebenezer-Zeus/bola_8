@@ -76,7 +76,7 @@ main {
 /* Estiliza os links da área do usuário. */
 #userArea a {
 	/* Define a cor dos links. */
-	color: rgb(255, 192, 195);
+	color: #e2b765;
 }
 
 /* Posiciona e dimensiona a logo da loja. */
@@ -98,7 +98,31 @@ main {
 }
 
 /* Adiciona espaço acima da área de navegação. */
-nav { margin-top: 10px; }
+nav {
+	/* Mantém os controles da navegação separados do título. */
+	margin-top: 10px;
+}
+
+/* Organiza a busca e os filtros sem que se sobreponham. */
+body > header nav,
+body > header #filters {
+	/* Permite que os campos passem para novas linhas em telas menores. */
+	display: flex;
+	/* Centraliza os grupos horizontalmente. */
+	justify-content: center;
+	/* Separa os campos e botões entre si. */
+	gap: 8px;
+	/* Permite quebra da barra de filtros. */
+	flex-wrap: wrap;
+}
+
+/* Mantém a busca e os filtros dentro da largura disponível. */
+body > header nav input,
+body > header nav select,
+body > header nav button {
+	/* Impede que os controles ultrapassem a largura do cabeçalho. */
+	max-width: 100%;
+}
 
 /* Organiza os cartões de produto em linhas centralizadas. */
 #productList {
@@ -157,9 +181,33 @@ footer {
 /* Ajusta a altura mínima e o espaço interno do cabeçalho das páginas secundárias. */
 .subpage-header {
 	/* Mantém o cabeçalho mais compacto que o cabeçalho da vitrine. */
-	min-height: 100px;
+	min-height: 200px;
 	/* Cria espaço ao redor do conteúdo do cabeçalho. */
 	padding: 20px;
+}
+
+/* Padroniza a logo e o título das páginas secundárias com o cabeçalho principal. */
+.subpage-header h1 {
+	/* Mantém o título centralizado no cabeçalho. */
+	margin: 20px 0 8px;
+	/* Usa a mesma cor clara dos títulos principais. */
+	color: #fff;
+}
+
+.subpage-header .logo-site {
+	/* Mantém o mesmo posicionamento da logo usada na página inicial. */
+	position: absolute;
+	top: 20px;
+	left: 120px;
+	height: 140px;
+	width: auto;
+	object-fit: contain;
+}
+
+/* Mantém a logo do Login no fluxo acima do título em telas médias. */
+.subpage-header > a {
+	/* Permite que a área da logo acompanhe o cabeçalho responsivo. */
+	display: block;
 }
 
 /* Define o fundo e a altura mínima do conteúdo secundário. */
@@ -346,23 +394,110 @@ footer {
 .back-link,
 #userArea span {
 	/* Define a cor dos links e da saudação da conta. */
-	color: #fff;
+	color: #e2b765;
+}
+
+/* Reorganiza o cabeçalho antes que logo e título possam se sobrepor. */
+@media (max-width: 1100px) {
+	/* Permite que todos os cabeçalhos cresçam conforme o layout muda. */
+	body > header {
+		min-height: auto;
+	}
+
+	/* Empilha logo e título no mesmo padrão usado pelo Index. */
+	body > header.subpage-header {
+		/* Usa o fluxo em coluna para que o título fique sempre abaixo da logo. */
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	/* Faz o link da logo ocupar apenas o espaço da própria imagem. */
+	body > header.subpage-header > a {
+		display: block;
+		line-height: 0;
+	}
+
+	/* Retira todas as logos do posicionamento absoluto em telas médias. */
+	body > header .logo-site {
+		position: relative;
+		top: auto;
+		left: auto;
+		display: block;
+		margin: 0 auto 8px;
+		height: 100px;
+	}
+
+	/* Mantém os títulos abaixo das logos em telas médias. */
+	body > header h1 {
+		margin: 8px 0;
+	}
 }
 
 /* Ajusta a posição de alguns elementos em telas estreitas. */
 @media (max-width: 600px) {
-	/* Reposiciona e reduz a logo em telas pequenas. */
-	.subpage-header .logo-site {
-		/* Aproxima a logo da borda esquerda. */
-		left: 16px;
-		/* Diminui a altura da logo para caber na tela. */
-		height: 80px;
+	/* Reorganiza o cabeçalho da página inicial em telas estreitas. */
+	body > header {
+		/* Permite que o cabeçalho cresça conforme os controles empilham. */
+		min-height: auto;
+		/* Mantém uma margem interna menor no celular. */
+		padding: 14px;
 	}
 
-	/* Cria espaço acima do título no cabeçalho compacto. */
-	.subpage-header h1 {
-		/* Evita sobreposição com a logo em telas pequenas. */
-		padding-top: 35px;
+	/* Garante a mesma disposição em coluna no cabeçalho secundário. */
+	body > header.subpage-header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	/* Coloca a logo no fluxo normal em vez de sobrepor o título. */
+	body > header .logo-site {
+		/* Remove o posicionamento absoluto da logo. */
+		position: relative;
+		/* Alinha a logo no canto superior esquerdo. */
+		top: auto;
+		left: auto;
+		/* Centraliza a logo horizontalmente. */
+		display: block;
+		margin: 0 auto 8px;
+		/* Reduz a logo para caber na tela. */
+		height: 82px;
+	}
+
+	/* Reduz o título para evitar quebra e sobreposição. */
+	body > header h1 {
+		/* Ajusta o tamanho do título no celular. */
+		font-size: 1.35rem;
+		/* Aproxima o título da logo e da navegação. */
+		margin: 8px 0;
+	}
+
+	/* Empilha os controles da barra de busca no celular. */
+	body > header nav {
+		/* Organiza os elementos em uma coluna. */
+		flex-direction: column;
+		/* Alinha os controles pela largura disponível. */
+		align-items: stretch;
+	}
+
+	/* Faz os campos e botões ocuparem toda a largura disponível. */
+	body > header nav input,
+	body > header nav select,
+	body > header nav button,
+	body > header #filters input,
+	body > header #filters select,
+	body > header #filters button {
+		/* Ocupa toda a largura da coluna. */
+		width: 100%;
+	}
+
+	/* Mantém o grupo de filtros empilhado no celular. */
+	body > header #filters {
+		/* Ocupa toda a largura disponível. */
+		width: 100%;
+		/* Organiza os filtros em coluna. */
+		flex-direction: column;
 	}
 
 	/* Empilha o texto e o botão dos itens do carrinho no celular. */
@@ -371,6 +506,55 @@ footer {
 		align-items: flex-start;
 		/* Coloca as partes do cartão uma abaixo da outra. */
 		flex-direction: column;
+	}
+}
+
+/* Reforça a posição vertical da logo no cabeçalho do Login. */
+@media (max-width: 1100px) {
+	body > header.subpage-header {
+		/* Organiza os dois elementos em uma coluna fixa. */
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	body > header.subpage-header > a {
+		/* Mantém o link da logo no topo e centralizado. */
+		position: relative;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		margin: 0 0 8px;
+		line-height: 0;
+	}
+
+	body > header.subpage-header .logo-site {
+		/* Remove o posicionamento absoluto que fazia a logo sobrepor o título. */
+		position: relative;
+		top: auto;
+		left: auto;
+		display: block;
+		margin: 0 auto;
+		height: 100px;
+	}
+
+	body > header.subpage-header h1 {
+		/* Coloca o título abaixo da logo, centralizado e no fluxo normal. */
+		position: relative;
+		width: 100%;
+		margin: 8px 0 0;
+		text-align: center;
+	}
+}
+
+@media (max-width: 600px) {
+	body > header.subpage-header .logo-site {
+		height: 82px;
+	}
+
+	body > header.subpage-header h1 {
+		font-size: 1.35rem;
 	}
 }
 
@@ -666,18 +850,119 @@ footer {
 	font-weight: 600;
 }
 
-/* Título "Bola 8" usado como atalho para a página inicial. */
+/* Mantém o título do cabeçalho como atalho para a página inicial. */
 .home-link {
-	/* Mantém a cor branca do título. */
-	color: inherit;
+	/* Usa o dourado padronizado para todos os links do site. */
+	color: #e2b765;
 	/* Remove o sublinhado padrão dos links. */
 	text-decoration: none;
 	/* Suaviza a mudança de cor ao passar o mouse. */
 	transition: color 0.2s;
 }
 
-/* Destaca o título ao passar o mouse para mostrar que é clicável. */
+/* Destaca o título ao indicar que ele volta para a página inicial. */
 .home-link:hover {
 	/* Usa o rosa claro dos links do cabeçalho. */
-	color: rgb(255, 192, 195);
+	color: #ecc576;
+}
+
+/* Padroniza os campos da página inicial igual aos campos de login. */
+body > header nav input,
+body > header nav select {
+	/* Inclui preenchimento e borda na largura definida. */
+	box-sizing: border-box;
+	/* Cria espaço interno para facilitar a digitação. */
+	padding: 12px 14px;
+	/* Usa o mesmo fundo escuro translúcido dos campos de login. */
+	background: rgba(255, 255, 255, 0.07);
+	/* Desenha uma borda clara e discreta. */
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	/* Arredonda os campos como na tela de login. */
+	border-radius: 8px;
+	/* Usa texto branco nos campos. */
+	color: #fff;
+	/* Usa uma fonte legível e consistente. */
+	font: 16px Arial, sans-serif;
+	/* Suaviza a mudança da borda ao focar. */
+	transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Deixa o texto de exemplo dos campos igual ao texto do login. */
+body > header nav input::placeholder {
+	/* Usa o tom claro e apagado dos campos de login. */
+	color: rgba(255, 255, 255, 0.4);
+}
+
+/* Destaca os campos da página inicial ao receberem foco. */
+body > header nav input:focus,
+body > header nav select:focus {
+	/* Remove o contorno padrão do navegador. */
+	outline: none;
+	/* Usa dourado na borda do campo ativo. */
+	border-color: #e2b765;
+	/* Cria o mesmo brilho dourado dos campos de login. */
+	box-shadow: 0 0 0 3px rgba(226, 183, 101, 0.25);
+}
+
+/* Mantém as opções do seletor com contraste adequado. */
+body > header nav select option {
+	/* Usa fundo escuro nas opções. */
+	background: #300101;
+	/* Mantém o texto das opções em branco. */
+	color: #fff;
+}
+
+/* Padroniza somente os botões da página inicial com o dourado do login. */
+body > header nav button,
+#productList button {
+	/* Remove o contorno padrão do navegador. */
+	outline: none;
+	/* Mantém uma borda dourada visível. */
+	border: 1px solid #e2b765;
+	/* Usa o fundo dourado do botão principal do login. */
+	background: linear-gradient(180deg, #ecc576, #d4a24c);
+	/* Usa texto escuro para combinar com o dourado. */
+	color: #2a0000;
+	/* Aplica o mesmo brilho dourado dos campos ativos. */
+	box-shadow: 0 0 0 3px rgba(226, 183, 101, 0.25);
+	/* Suaviza borda, brilho e brilho ao passar o mouse. */
+	transition: border-color 0.2s, box-shadow 0.2s, filter 0.2s;
+}
+
+/* Mantém o padrão dourado ao navegar pelos botões com o teclado. */
+body > header nav button:focus,
+body > header nav button:focus-visible,
+#productList button:focus,
+#productList button:focus-visible {
+	/* Usa a borda dourada definida para os campos ativos. */
+	border-color: #e2b765;
+	/* Mantém o brilho dourado ao redor do botão. */
+	box-shadow: 0 0 0 3px rgba(226, 183, 101, 0.25);
+}
+
+/* Realça todos os botões ao passar o mouse ou ao serem pressionados. */
+body > header nav button:hover,
+body > header nav button:active,
+#productList button:hover,
+#productList button:active {
+	/* Clareia o botão dourado ao interagir. */
+	filter: brightness(1.08);
+	/* Deixa a borda dourada mais evidente. */
+	border-color: #ecc576;
+	/* Intensifica discretamente o brilho dourado. */
+	box-shadow: 0 0 0 3px rgba(236, 197, 118, 0.32);
+}
+
+/* Padroniza todos os links restantes do site com o dourado da identidade. */
+a,
+a:visited {
+	/* Mantém a cor dourada até depois de o link ser visitado. */
+	color: #e2b765;
+}
+
+a:hover,
+a:focus,
+a:active {
+	/* Clareia ligeiramente o dourado durante a interação. */
+	color: #ecc576;
 }
